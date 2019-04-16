@@ -9,7 +9,7 @@
           v-model="newTodo"
           @keyup.enter="addTodo">
     </header>
-    <section class="main">
+    <section class="main" v-show="todos.length" v-cloak>
       <ul class="todo-list">
         <li v-for="todo in todos" :key="todo.id">
           <div class="view">

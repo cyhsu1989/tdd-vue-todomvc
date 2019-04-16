@@ -31,4 +31,12 @@ module.exports = {
       .assert.containsText('.todo-list li:first-child > .view > label', todo)
       .end();
   },
+
+  當沒有待辦事項時列表應該隱藏(browser) {
+    browser
+      .url('http://localhost:8080')
+      .waitForElementVisible('#app', 5000)
+      .assert.hidden('.main', 1000)
+      .end();
+  },
 };
