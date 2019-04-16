@@ -14,8 +14,21 @@ module.exports = {
 
     browser
       .url('http://localhost:8080')
+      .waitForElementVisible('#app', 5000)
       .setValue('.new-todo', [todo, browser.Keys.ENTER])
       .assert.value('.new-todo', '')
+      .end();
+  },
+
+  建立新待辦事項後應該出現待辦事項列表(browser) {
+    const todo = 'This is new todo';
+
+    browser
+      .url('http://localhost:8080')
+      .waitForElementVisible('#app', 5000)
+      .setValue('.new-todo', [todo, browser.Keys.ENTER])
+      .waitForElementVisible('.todo-list li:first-child', 1000)
+      .assert.containsText('.todo-list li:first-child > .view > label', todo)
       .end();
   },
 };
