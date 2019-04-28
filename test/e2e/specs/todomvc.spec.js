@@ -2,9 +2,7 @@ module.exports = {
   應用程式標題與輸入欄位(browser) {
     browser
       .page.todomvc().show()
-      .assert.elementPresent('.header')
-      .assert.containsText('h1', 'todos')
-      .assert.elementPresent('.new-todo')
+      .page.todomvc().shouldSeeTitleAndInput()
       .end();
   },
 
@@ -13,8 +11,8 @@ module.exports = {
 
     browser
       .page.todomvc().show()
-      .setValue('.new-todo', [todo, browser.Keys.ENTER])
-      .assert.value('.new-todo', '')
+      .page.todomvc().addTodo(todo)
+      .page.todomvc().shouldSeeAtNewTodo('')
       .end();
   },
 
@@ -23,16 +21,15 @@ module.exports = {
 
     browser
       .page.todomvc().show()
-      .setValue('.new-todo', [todo, browser.Keys.ENTER])
-      .waitForElementVisible('.todo-list li:first-child', 1000)
-      .assert.containsText('.todo-list li:first-child > .view > label', todo)
+      .page.todomvc().addTodo(todo)
+      .page.todomvc().shouldSeeAtFirstItem(todo)
       .end();
   },
 
   當沒有待辦事項時列表應該隱藏(browser) {
     browser
       .page.todomvc().show()
-      .assert.hidden('.main', 1000)
+      .page.todomvc().shouldHiddenTodoListWithoutTodo()
       .end();
   },
 };
